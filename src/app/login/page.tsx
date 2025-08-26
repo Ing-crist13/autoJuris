@@ -25,17 +25,20 @@ export default function Login() {
         <h1 className="text-3xl font-inter font-thin text-center text-gray-800 mb-4" >LOGIN</h1>
         <form className="flex flex-col "> 
           <div className=""> 
-            <Input className="w-full outline-none text-md text-gray-700 placeholder-gray-400 bg-transparent border-b border-gray-600 py-2 mb-5"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            <Input 
+                    label=""
+                    type="email"
+                    name="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
             />
         </div>
         <div> 
-        <Input className="w-full outline-none text-md text-gray-700 placeholder-gray-400 bg-transparent border-b border-gray-600 py-2 "
+        <Input 
           type="password"
           placeholder="Senha"
+          name="senha"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
         />

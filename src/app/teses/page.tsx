@@ -4,16 +4,43 @@ import Header from "../components/header";
 import NavBar from "../components/navBar";
 import Input from "../components/forms";
 import Button from "../components/Button";
-import { Modal } from "../components/Modal";
+import { useRouter } from 'next/navigation';import { Modal } from "../components/Modal";
+;
 
 
 
 export default function Teses(){
 
-    const[open, setOpen] = useState(false);
+      const [modalState, setModalState] = useState({
+    isOpen: false,
+    type: null, // 'cancelamento' ou 'confirmacao'
+  });
+   const handleOpenModal = (type) => {
+    setModalState({ isOpen: true, type: type });
+  };
+    //função para fechar o modal
+     const handleCloseModal = () => {
+    setModalState({ isOpen: false, type: null });
+  };
+
+    const handleConfirmSave = () => {
+    // Lógica para salvar os dados
+    console.log('Dados salvos!');
+    // ... redirecionar, exibir mensagem de sucesso, etc.
+    handleCloseModal();
+  };
+
+    const handleConfirmCancel = () => {
+    // Lógica para limpar o formulário e redirecionar
+    
+    handleCloseModal();
+    router.push('/home');
+  };
 
     const [nomeTese, setNomeTese] = useState("");
     const [areaAssociada, setArea] = useState("");
+    const router = useRouter();
+
     return(
          <div className="bg-amber-50  "> 
     <div className=" pb-18 bg-[#16332E]"> 
@@ -46,11 +73,59 @@ export default function Teses(){
                              />
                             
                      </div>
-                      <Modal isOpen={open}/>
+                       {/* Renderização da Modal */}
+                         {modalState.type === 'cancelamento' && (
+                           <Modal
+                             isOpen={modalState.isOpen}
+                             title="Deseja realmente cancelar?"
+                             message="Os dados serão perdidos e a ação não poderá ser desfeita."
+                             buttons={
+                               <>
+                                 <button
+                                   onClick={handleConfirmCancel}
+                                   className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                                 >
+                                   OK
+                                 </button>
+                                 <button
+                                   onClick={handleCloseModal}
+                                   className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+                                 >
+                                   Voltar
+                                 </button>
+                               </>
+                             }
+                           />
+                         )}
+                     
+                         {modalState.type === 'confirmacao' && (
+                           <Modal
+                             isOpen={modalState.isOpen}
+                             title="Confirmar Cadastro?"
+                             message="Confirme os dados para prosseguir com o cadastro da tese."
+                             buttons={
+                               <>
+                                 <button
+                                   onClick={handleConfirmSave}
+                                   className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                                 >
+                                   Confirmar
+                                 </button>
+                                 <button
+                                   onClick={handleCloseModal}
+                                   className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+                                 >
+                                   Cancelar
+                                 </button>
+                               </>
+                             }
+                           />
+                         )}
+                      
                     </form>
             <div className="flex gap-10 items-center justify-center"> 
-                <Button onClick={() => setOpen(!open)} className={undefined} children={undefined}> Cadastrar </Button>
-                <Button  variant="cancel" onClick={undefined} className={undefined} children={undefined}> Cancelar </Button>
+                <Button onClick={() => handleOpenModal('confirmacao')} children={undefined}> Cadastrar </Button>
+                <Button  variant="cancel" onClick={() => handleOpenModal('cancelamento')} className={undefined} children={undefined}> Cancelar </Button>
                     </div>
                 
         </div>

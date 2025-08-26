@@ -11,7 +11,7 @@ export default function Button({variant = 'save', onClick, className, children, 
         <button 
          onClick={onClick}
          className={`
-         text-white px-6 py-2 rounded-xl text-md hover:bg-teal-800 transition mt-6
+         text-white px-6 py-2 rounded-xl text-md hover:bg-teal-800 transition w-30
          ${buttonVariants[variant]}
          ${className}
          `}

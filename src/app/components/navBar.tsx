@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function NavBar(){
     return (
-        <div className="flex flex-col gap-9 bg-[#16332E]  items-center " > 
+        <div className="flex flex-col gap-10 w-22 bg-[#16332E]  items-center h-screen " > 
            <Link href="/home">
                 <HomeIcon  title="Home" className="size-8 mt-10 cursor-pointer"/>
            </Link>
